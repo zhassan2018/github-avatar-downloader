@@ -1,5 +1,5 @@
 var request = require('request');
-var token =  'd3b776e534adf8c70362e68792904f4bf8afd84c'
+var token =  require("./secrets")
 
 
 function getRepoContributors(repoOwner, repoName, cb) {
@@ -7,19 +7,22 @@ function getRepoContributors(repoOwner, repoName, cb) {
     url: "https://api.github.com/repos/" + repoOwner + "/" + repoName + "/contributors",
     headers: {
       'User-Agent': 'request',
-      'Authorization' : token
+      'Authorization' : token.GITHUB_TOKEN
     }
   };
 
   request(options, function(err, res, body) {
-    cb(err, body);
+  	var to_send = JSON.parse(body)
+    cb(err, to_send);
   });
 }
 
 
 getRepoContributors("jquery", "jquery", function(err, result) {
   console.log("Errors:", err);
-  console.log("Result:", result);
+  for (var i = 0; i < result.length; i++){
+  	console.log(result[i].avatar_url);
+  }
 });
 
 
