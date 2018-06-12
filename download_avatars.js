@@ -8,6 +8,10 @@ var repo = args[1];
 
 
 function getRepoContributors(repoOwner, repoName, cb) {
+	if (repoOwner === undefined || repoName === repoName){
+		return console.log("Error: Please Specify Repo Name and Repo Name")
+	}
+	
   var options = {
     url: "https://api.github.com/repos/" + repoOwner + "/" + repoName + "/contributors",
     headers: {
