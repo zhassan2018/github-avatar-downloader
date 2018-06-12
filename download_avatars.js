@@ -2,6 +2,10 @@ var request = require('request');
 var token =  require("./secrets");
 var fs = require('fs');
 
+var args = process.argv.slice(2);
+var owner = args[0];
+var repo = args[1];
+
 
 function getRepoContributors(repoOwner, repoName, cb) {
   var options = {
@@ -19,7 +23,7 @@ function getRepoContributors(repoOwner, repoName, cb) {
 }
 
 
-getRepoContributors("jquery", "jquery", function(err, result) {
+getRepoContributors(owner, repo, function(err, result) {
   console.log("Errors:", err);
   for (var i = 0; i < result.length; i++){
   	console.log(result[i].avatar_url);
